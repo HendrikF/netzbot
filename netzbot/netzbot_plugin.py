@@ -25,10 +25,11 @@ class Plugin:
     def netz(self, mask, target, args):
         """Netz abfragen
 
-            %%netz <nick>
+            %%netz [<nick>]
         """
         print('{mask} netz {args}'.format(mask=mask, args=args))
-        yield self.bot.db.get(args['<nick>'], {}).get('netz', None) or 'nichts bekannt'
+        nick = args.get('<nick>', mask.nick)
+        yield self.bot.db.get(nick, {}).get('netz', None) or 'Nichts bekannt über {nick}'.format(nick=nick)
 
     @command(permission='admin')
     def netzoverride(self, mask, target, args):
@@ -50,5 +51,5 @@ class Plugin:
             %%netzinfo
         """
         print('{mask} netzinfo {args}'.format(mask=mask, args=args))
-        yield 'User können mit !meinnetz ihr Netz festlegen. Mit !netz <nick> kann es abgefragt werden. Admin ist h3ndr1k.'
+        yield 'Nutzer können mit !meinnetz [<Netz>...] ihr Netz festlegen. Mit !netz [<Nick>] kann es abgefragt werden. Admin ist h3ndr1k.'
 
