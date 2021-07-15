@@ -68,3 +68,12 @@ class Plugin:
         for line in sl:
             self.bot.privmsg(mask.nick, line)
 
+    @command(permission='view', show_in_help_list=False)
+    def syn(self, mask, target, args):
+        """syn
+
+            %%syn [<ignore>...]
+        """
+        print('{mask} syn {args}'.format(mask=mask, args=args))
+        yield 'don\'t be silly now...'
+
