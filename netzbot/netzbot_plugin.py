@@ -59,7 +59,7 @@ class Plugin:
             %%netzinfo
         """
         print('{mask} netzinfo {args}'.format(mask=mask, args=args))
-        yield 'Nutzer können mit !meinnetz [<Netz>...] ihr Netz festlegen. Mit !netz [<Nick>] kann es abgefragt werden.'
+        yield 'Nutzer können mit !meinnetz [<Netz>...] ihr Netz festlegen. Mit !netz [<Nick>] kann es abgefragt werden. !allenetze zeigt die Anzahl der registrierten Nutzer in jedem Netz.'
 
     def clean_netz(self, netz):
         """Remove colors and control characters"""
@@ -80,7 +80,8 @@ class Plugin:
             # unsorted, so will get multiple calls for one key
             s = sizemap.get(key, 0)
             sizemap[key] = s + len(list(group))
-        output = sorted(sizemap.items(), key=lambda t: '{0} {1}'.format(t[1], t[0].lower()), reverse=True)
+        # sort by number (bigger first) and name (case insensitive)
+        output = sorted(sizemap.items(), key=lambda t: (-t[1], t[0].lower()))
         yield ', '.join(['{0[0]}: {0[1]}'.format(t) for t in output])
 
     @command(permission='view')
