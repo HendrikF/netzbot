@@ -1,0 +1,13 @@
+[Unit]
+Description=netzbot
+After=network.target
+
+[Service]
+User=netzbot
+ExecStart=/home/netzbot/netzbot/netzbot/start.sh
+WorkingDirectory=/home/netzbot/netzbot/netzbot
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
