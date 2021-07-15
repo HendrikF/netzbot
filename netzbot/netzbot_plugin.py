@@ -76,7 +76,7 @@ class Plugin:
         # uncool hack (.backend.db), as there is no official way to enumerate first level keys
         netze = [self.clean_netz(obj['netz']) for obj in self.bot.db.backend.db.values() if obj.get('netz', None) is not None]
         sizemap = {}
-        for key, group in itertools.groupby(netze):
+        for key, group in itertools.groupby(netze, key=lambda n: n.lower()):
             # unsorted, so will get multiple calls for one key
             s = sizemap.get(key, 0)
             sizemap[key] = s + len(list(group))
